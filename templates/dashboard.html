@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Forensic Timeline Dashboard</title>
+    <!-- Load Plotly.js from CDN -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Forensic Timeline Dashboard</h1>
+    <div id="timeline" style="width:90%;height:500px;"></div>
+
+    <script>
+      // Fetch log data from the backend API and plot using Plotly
+      fetch('/api/logs')
+        .then(response => response.json())
+        .then(data => {
+          // Extract and prepare data from the JSON payload
+          const timestamps = data.map(e => new Date(e.Timestamp));
+          const yValues = data.map((_, i) => i + 1);
+          const textValues = data.map(e => e.Source + ': ' + e.Description);
+          
+          const trace = {
+            x: timestamps,
+            y: yValues,
+            mode: 'markers',
+            type: 'scatter',
+            text: textValues,
+            marker: { size: 12 }
+          };
+
+          const layout = {
+            title: 'Chronological Timeline of Events',
+            xaxis: { title: 'Time' },
+            yaxis: { title: 'Event Number', tickvals: yValues }
+          };
+
+          Plotly.newPlot('timeline', [trace], layout);
+        })
+        .catch(error => console.error('Error fetching logs:', error));
+    </script>
+</body>
+</html>
