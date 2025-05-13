@@ -16,6 +16,7 @@ This Go project builds a dashboard that aggregates logs from multiple sources (e
 4. Visit [http://localhost:8080/api/logs](http://localhost:8080/api/logs) for JSON log data or [http://localhost:8080/api/report](http://localhost:8080/api/report) for the incident report.
 
 ## Repository Structure
+```
 forensic-timeline-dashboard/
 ├── README.md
 ├── go.mod
@@ -24,4 +25,4 @@ forensic-timeline-dashboard/
 ├── templates/
 │   └── dashboard.html
 └── main.go
-
+```
